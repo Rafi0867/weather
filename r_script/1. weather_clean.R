@@ -4,7 +4,8 @@ library(tidyverse)
 library(ggplot2)
 library(haven)
 library(dplyr)
-
+  install.packages("labelled")
+library(labelled)
 
 # loading weather data
 monthly_weather <- read_excel("raw_data/master.xlsx") %>%
@@ -27,3 +28,21 @@ monthly_weather %>% filter(month == 1) %>%
   ggplot()+
   geom_line( aes(x = year, y = rainfall, color = division), linewidth = 1)+
   theme_minimal()
+
+# load monthly ndvi data
+monthly_ndvi <- read_dta("raw_data/monthly_ndvi_01to22.dta") %>%
+  rename(division = div,
+         ndvi = mean) %>%
+  mutate(division = as.character(as_factor(division))) %>%
+  filter(division != "Mymensingh")
+
+
+# visualize the data
+monthly_ndvi %>% filter(month == 1)%>%
+  ggplot()+
+  geom_line(aes(x = year , y = ndvi, color = division), linewidth = 1)+
+  theme_minimal()
+
+
+# make a single data set for monthly weather and ndvi
+env_ndvi <- inner_join(monthly_weather, monthly_ndvi, by = c("division", "year", "month"))
