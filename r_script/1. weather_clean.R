@@ -18,4 +18,12 @@ monthly_weather <- read_excel("raw_data/master.xlsx") %>%
               low_temp = mean(`min temperature`),
               high_temp = mean(`max temperature`),
               spi = mean(spi),
-              evap = mean(evaporation))
+              evap = mean(evaporation)) %>%
+  ungroup()
+
+
+# visualize the data 
+monthly_weather %>% filter(month == 1) %>%
+  ggplot()+
+  geom_line( aes(x = year, y = rainfall, color = division), linewidth = 1)+
+  theme_minimal()
