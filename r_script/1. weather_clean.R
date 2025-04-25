@@ -60,8 +60,8 @@ ggplot()+
 # creating plots with more inclusive summarizing options and group by functions
 env_ndvi %>%
   group_by(division, year) %>%
-  summarise(ndvi = min(ndvi)) %>%
-  filter(division != "Chittagong", year >= 2010) %>%
-  ggplot()+
-  geom_line(aes(x = year, y = ndvi, color = division), linewidth = 1)+
-  theme_minimal()
+    summarise(ndvi = min(ndvi)) %>%
+    filter(division != "Chittagong", year >= 2010) %>%
+      ggplot()+
+        geom_line(aes(x = year, y = ndvi, color = division), linewidth = 1)+
+        theme_minimal()
