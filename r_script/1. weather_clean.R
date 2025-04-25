@@ -38,7 +38,7 @@ monthly_ndvi <- read_dta("raw_data/monthly_ndvi_01to22.dta") %>%
 
 
 # visualize the data
-monthly_ndvi %>% filter(month == 1)%>%
+monthly_ndvi %>% filter(month == 2)%>%
   ggplot()+
   geom_line(aes(x = year , y = ndvi, color = division), linewidth = 1)+
   theme_minimal()
@@ -46,3 +46,7 @@ monthly_ndvi %>% filter(month == 1)%>%
 
 # make a single data set for monthly weather and ndvi
 env_ndvi <- inner_join(monthly_weather, monthly_ndvi, by = c("division", "year", "month"))
+
+# calculating the correlation coefficient between two variables
+cor(env_ndvi$ndvi, env_ndvi$spi)
+
