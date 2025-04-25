@@ -51,12 +51,6 @@ env_ndvi <- inner_join(monthly_weather, monthly_ndvi, by = c("division", "year",
 cor(env_ndvi$ndvi, env_ndvi$spi)
 
 
-
-ggplot()+
-  geom_point(data = env_ndvi%>% filter(division == "Rajshahi"),
-             aes(x = ndvi, y = mean_temp, color = year),size = 3)
-
-
 # creating plots with more inclusive summarizing options and group by functions
 env_ndvi %>%
   group_by(division, year) %>%
