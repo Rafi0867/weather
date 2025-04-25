@@ -50,3 +50,18 @@ env_ndvi <- inner_join(monthly_weather, monthly_ndvi, by = c("division", "year",
 # calculating the correlation coefficient between two variables
 cor(env_ndvi$ndvi, env_ndvi$spi)
 
+
+
+ggplot()+
+  geom_point(data = env_ndvi%>% filter(division == "Rajshahi"),
+             aes(x = ndvi, y = mean_temp, color = year),size = 3)
+
+
+# creating plots with more inclusive summarizing options and group by functions
+env_ndvi %>%
+  group_by(division, year) %>%
+  summarise(ndvi = min(ndvi)) %>%
+  filter(division != "Chittagong", year >= 2010) %>%
+  ggplot()+
+  geom_line(aes(x = year, y = ndvi, color = division), linewidth = 1)+
+  theme_minimal()
